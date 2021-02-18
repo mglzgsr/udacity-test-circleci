@@ -14,7 +14,7 @@ jobs:
           name: "Echoing to a file"
           command: echo "hello world" > output.txt
       - persist_to_workspace:
-          root: saved_file
+          root: ./saved_file
           paths:
             - "output.txt"
   print_output_file:
@@ -22,7 +22,7 @@ jobs:
       - image: alpine:latest
     steps:
       - attach_workspace:
-          at: saved_file
+          at: ./saved_file
       - run: 
           name: "Retrieving file's content"
           command: cat output.txt
