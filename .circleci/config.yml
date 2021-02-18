@@ -10,7 +10,9 @@ jobs:
     docker: 
       - image: alpine:latest
     steps:
-      - run: echo $name
+      - run: 
+          name: "What is a name section?"
+          command: echo $name
       - run: echo << pipeline.id >>  
 workflows:
   # Name the workflow "welcome"
