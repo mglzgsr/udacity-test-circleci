@@ -6,16 +6,32 @@ version: 2.1
 #   welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
 jobs:
-  test:
+  save_hello_world_output:
     docker: 
       - image: alpine:latest
     steps:
       - run: 
-          name: "What is a name section?"
-          command: echo $name
-      - run: echo << pipeline.id >>  
+          name: "Echoing to a file"
+          command: echo "hello world" > output.txt
+      - persist_to_workspace:
+          root: saved_file
+          paths:
+            - "./output.txt"
+  print_output_file:
+    docker:
+      - image: alpine:latest
+    steps:
+      - attach_workspace:
+          at: saved_file
+      - run: 
+          name: "Retrieving file's content"
+          command: cat output.txt
+          
 workflows:
   # Name the workflow "welcome"
   pipeline-test:
     jobs:
-      - test
+      - save_hello_world_output
+      - print_output_file:
+          requires:
+            - save_hello_world_output
