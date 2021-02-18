@@ -11,6 +11,7 @@ jobs:
       - image: alpine:latest
     steps:
       - run: echo $name
+      - run: echo << pipeline.id >>  
 workflows:
   # Name the workflow "welcome"
   pipeline-test:
