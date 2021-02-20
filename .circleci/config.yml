@@ -2,7 +2,7 @@
 version: 2.1
 
 test_anchor: &print_pipeline_id
-  - run: 'echo This is the Workflow ID: $CIRCLE_WORLFLOW_ID'
+  - run: 'echo This is the Workflow ID: ${CIRCLE_WORLFLOW_ID}'
 
 jobs:
   test:
